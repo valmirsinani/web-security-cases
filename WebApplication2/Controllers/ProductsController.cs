@@ -10,16 +10,16 @@ namespace WebApplication2.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
- public HttpResponseMessage Post(Product product)
- {
-      if (ModelState.IsValid)
+        public HttpResponseMessage Post(Product product)
+        {
+            if (ModelState.IsValid)
             {
                 //Insterimi/select/... i produktit ose 
-       return new HttpResponseMessage(HttpStatusCode.OK);
+                return new HttpResponseMessage(HttpStatusCode.OK);
             }
             else
             {
-       return new HttpResponseMessage(HttpStatusCode.BadRequest);
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
         }
     }
