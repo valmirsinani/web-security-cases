@@ -1,0 +1,35 @@
+﻿@model WebApplication2.Models.RegistrationViewModel
+@{
+    ViewBag.Title = "Registration Page";
+}
+
+@using (Html.BeginForm())
+{ 
+
+    @Html.LabelFor(m => m.FirstName)
+    @Html.TextBoxFor(m => m.FirstName, new { maxlength = 50 })
+    @Html.ValidationMessageFor(m => m.FirstName)
+    <br>
+    <br>
+    @Html.LabelFor(m => m.LastName)
+    @Html.PasswordFor(m => m.LastName, new { maxlength = 50 })
+    @Html.ValidationMessageFor(m => m.LastName)
+    <br>
+    <br>
+    @Html.LabelFor(m => m.Address1)
+    @Html.PasswordFor(m => m.Address1, new { maxlength = 50 })
+    @Html.ValidationMessageFor(m => m.Address1)
+    <br>
+    <br>
+    @Html.LabelFor(m => m.Address2)
+    @Html.TextAreaFor(m => m.Address2, new { maxlength = 200 })
+    @Html.ValidationMessageFor(m => m.Address2)
+    <br>
+    <br>
+    @Html.LabelFor(m => m.TelNo)
+    @Html.TextBoxFor(m => m.TelNo, new { maxlength = 10 })
+    @Html.ValidationMessageFor(m => m.TelNo)
+    <br>
+    <br>
+    <button type="submit">Ruaj</button> 
+}
