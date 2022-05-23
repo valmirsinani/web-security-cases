@@ -14,7 +14,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Http.Features;
-using MySql.Data.EntityFrameworkCore.Extensions; 
+using MySql.Data.EntityFrameworkCore.Extensions;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApplication2
 {
@@ -62,7 +63,23 @@ namespace WebApplication2
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-      
+
+
+            // CSP TO AVOID XXS
+            /*default-src — Specifies the default for other sources
+            script-src,style-src,object-src,img-src,media-src,frame-src,font-src,connect-src*/
+
+            app.Use(async (context, next) =>
+            {
+                await next.Invoke();
+                //After going down the pipeline check if we 404'd. 
+                if (context.Response.StatusCode == Microsoft.AspNetCore.Http.StatusCodes.Status404NotFound)
+                {
+                    await context.Response.WriteAsync("Page not found");
+                }
+            });
+
+            app.UseExceptionHandler("/home/error");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -81,5 +98,14 @@ namespace WebApplication2
     }
 
 
+
+    public class CustomExceptionFilterAttribute : Microsoft.AspNetCore.Mvc.Filters.ExceptionFilterAttribute
+    {
+        //write the code logic to store the error here
+
+        RedirectToRouteResult result = new RedirectToRouteResult(
+               new Microsoft.AspNetCore.Routing.RouteValueDictionary {  {"controller", "Error"}, {"action", "CustomError"}
+               });
+    }
 
 }

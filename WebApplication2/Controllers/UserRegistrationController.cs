@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using WebApplication2.Models;
-
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc; 
+using System.Text.RegularExpressions; 
+using WebApplication2.Models; 
 namespace WebApplication2.Controllers
 {
     public class UserRegistrationController : Controller
@@ -37,5 +33,25 @@ namespace WebApplication2.Controllers
                 return View(); //Returns user to the same page back again  
             }
         }
+        [HttpGet]
+        public ActionResult fileupload()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public ActionResult fileupload(IFormFile file)
+        {
+            FileUpload1 fs = new FileUpload1();
+            fs.filesize = 550;
+            string us = fs.UploadUserFile(file);
+            if (us != null)
+            {
+                ViewBag.ResultErrorMessage = fs.ErrorMessage;
+            }
+            return View();
+        }
+
     }
 }

@@ -1,0 +1,28 @@
+﻿@model WebApplication2.Models.FileUpload1
+
+@{
+    ViewBag.Title = "File Upload";
+}
+<h2 style="background-color: Yellow;color: Blue; text-align: center; font-style: oblique"> VALIDIMI I UPLOAD-IT TE FILEVE SIPAS WORD/PDF/EXCEL/TXT </h2>
+
+<fieldset>
+    <legend style="font-family:Arial Black;color:blue">Upload ketu!</legend>
+    <form action="" method="post" enctype="multipart/form-data" asp-antiforgery="true">
+
+        <input type="file" name="file" id="file " />
+        <div>
+            <input type="submit" value="Upload" />
+        </div>
+    </form>
+</fieldset>
+
+@if (ViewBag.ResultErrorMessage != null)
+{
+    <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.ResultErrorMessage");
+               };
+    </script>
+
+}  
