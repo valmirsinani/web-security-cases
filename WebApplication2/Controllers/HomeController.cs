@@ -36,7 +36,7 @@ namespace WebApplication2.Controllers
                // var tt = db.listcustomers.ToList();
                 customerId = "-1";
             }
-            bool isInt = int.TryParse(customerId, out int cid);
+            bool isInt = true;// int.TryParse(customerId, out int cid);
             if (!isInt)
             {
                 List<customer> obj = new List<customer>();
@@ -70,7 +70,6 @@ namespace WebApplication2.Controllers
                         username =  reader["username"].ToString() ,
                         password = reader["password"].ToString()
                     };
-              
 
                     ret.Add(t);
                 }

@@ -12,33 +12,25 @@ namespace WebApplication2.Models
         public string ErrorMessage { get; set; }
         public decimal filesize { get; set; }
         public string UploadUserFile(IFormFile file)
-        {
-            try
+        { try
             {
                 var supportedTypes = new[] { "txt", "doc", "docx", "pdf", "xls", "xlsx" };
-                var fileExt = System.IO.Path.GetExtension(file.FileName).Substring(1);
-                string contentType = "";
-                new FileExtensionContentTypeProvider().TryGetContentType(file.FileName, out contentType);
-              
+                var fileExt = System.IO.Path.GetExtension(file.FileName).Substring(1); 
 
-                if (!supportedTypes.Contains(fileExt))//validimi sipas file extension
-                {
+                if (!supportedTypes.Contains(fileExt)) {
                     ErrorMessage = "Extension Filet nuk eshte VALID - Lejohen vetem WORD/PDF/EXCEL/TXT File";
                     return ErrorMessage;
                 }
-                else if (file.Length > (filesize * 1024))//validimi per madhesin e files
-                {
+                else if (file.Length > (filesize * 1024))  {
                     ErrorMessage = "File i lejuar eshte deri: " + filesize + "KB";
                     return ErrorMessage;
                 }
-                else
-                {
+                else {
                     ErrorMessage = "File eshte upload-u me sukses";
                     return ErrorMessage;
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 ErrorMessage = "File i upload nuk duhet te jet i Zbrazt or Contact Admin";
                 return ErrorMessage;
             }
