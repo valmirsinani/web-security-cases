@@ -12,5 +12,6 @@ namespace WebApplication2.Models
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string TelNo { get; set; }
+        public string TelNo2 { get; set; }
     }
 }

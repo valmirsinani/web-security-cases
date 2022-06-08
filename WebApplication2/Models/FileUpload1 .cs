@@ -14,7 +14,7 @@ namespace WebApplication2.Models
         public string UploadUserFile(IFormFile file)
         { try
             {
-                var supportedTypes = new[] { "txt", "doc", "docx", "pdf", "xls", "xlsx" };
+                var supportedTypes = new[] { "txt", "doc", "docx", "pdf", "xls", "xlsx", "jpg" };
                 var fileExt = System.IO.Path.GetExtension(file.FileName).Substring(1); 
 
                 if (!supportedTypes.Contains(fileExt)) {

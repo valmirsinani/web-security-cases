@@ -18,11 +18,21 @@ namespace WebApplication2.Controllers
             {
                 ModelState.AddModelError("FirstName", "Please enter your first name");
             }
+            if (string.IsNullOrEmpty(registerModel.LastName))
+            {
+                ModelState.AddModelError("LastName", "Please enter your first name");
+            }
             if (!string.IsNullOrEmpty(registerModel.TelNo))
             {
                 Regex telNoRegex = new Regex(@"^9\d{9}$");
                 if (!telNoRegex.IsMatch(registerModel.TelNo))
                     ModelState.AddModelError("TelNo", "Ju lutem shenojeni vleren e Telephone Number");
+            }
+            if (!string.IsNullOrEmpty(registerModel.TelNo2))
+            {
+                Regex telNoRegex = new Regex(@"^9\d{9}$");
+                if (!telNoRegex.IsMatch(registerModel.TelNo2))
+                    ModelState.AddModelError("TelNo2", "Ju lutem shenojeni vleren e Telephone Number");
             }
             if (ModelState.IsValid)
             {
@@ -44,7 +54,7 @@ namespace WebApplication2.Controllers
         public ActionResult fileupload(IFormFile file)
         {
             FileUpload1 fs = new FileUpload1();
-            fs.filesize = 550;
+            fs.filesize = 1024;// 1024
             string us = fs.UploadUserFile(file);
             if (us != null)
             {

@@ -28,7 +28,11 @@
     <br>
     @Html.LabelFor(m => m.TelNo)
     @Html.TextBoxFor(m => m.TelNo, new { maxlength = 10 })
-    @Html.ValidationMessageFor(m => m.TelNo)
+    @Html.ValidationMessageFor(m => m.TelNo) <br>
+    <br>
+    @Html.LabelFor(m => m.TelNo2)
+    @Html.TextBoxFor(m => m.TelNo2, new { maxlength = 10 })
+    @Html.ValidationMessageFor(m => m.TelNo2)
     <br>
     <br>
     <button type="submit">Ruaj</button> 

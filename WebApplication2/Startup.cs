@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Http.Features;
 using MySql.Data.EntityFrameworkCore.Extensions;
 using Microsoft.AspNetCore.Http;
+using WebApplication2.Models;
 
 namespace WebApplication2
 {
@@ -44,8 +45,11 @@ namespace WebApplication2
             services.AddDbContext<EmployeeContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySQLConnection")).EnableSensitiveDataLogging());
             services.AddTransient<MySqlDatabase>(_ => new MySqlDatabase(Configuration.GetConnectionString("MySQLConnection")));
             string mySqlConnectionStr = Configuration.GetConnectionString("MySQLConnection");
-           // services.AddEntityFrameworkMySQL();
-           // services.AddDbContextPool<EmployeeContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+            // services.AddEntityFrameworkMySQL();
+            // services.AddDbContextPool<EmployeeContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+
+            // Add our Config object so it can be injected
+            services.Configure<MyConfig>(Configuration.GetSection("ConnectionStrings"));
         }
 
 

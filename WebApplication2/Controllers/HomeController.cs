@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,15 @@ namespace WebApplication2.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private EmployeeContext db ;
+        private readonly IOptions<MyConfig> config;
+
+ 
+ 
 
         private MySqlDatabase MySqlDatabase { get; set; }
       
-        public HomeController(ILogger<HomeController> logger, MySqlDatabase mySqlDatabase)//, EmployeeContext employee)
-        {
+        public HomeController(ILogger<HomeController> logger, MySqlDatabase mySqlDatabase,IOptions<MyConfig> config)//, EmployeeContext employee)
+        { this.config = config;
             _logger = logger;
             //db = employee;
             this.MySqlDatabase = mySqlDatabase;
@@ -36,7 +41,7 @@ namespace WebApplication2.Controllers
                // var tt = db.listcustomers.ToList();
                 customerId = "-1";
             }
-            bool isInt = true;// int.TryParse(customerId, out int cid);
+            bool isInt = true;//  int.TryParse(customerId, out int cid);
             if (!isInt)
             {
                 List<customer> obj = new List<customer>();
@@ -56,7 +61,8 @@ namespace WebApplication2.Controllers
         {
             var ret = new List<customer>();
 
-             MySql.Data.MySqlClient.MySqlConnection Connection = new MySqlConnection("server=localhost;user id=root;password=123456;database=emplyeedb");
+         //    MySql.Data.MySqlClient.MySqlConnection Connection = new MySqlConnection("server=localhost;user id=root;password=123456;database=emplyeedb");
+             MySql.Data.MySqlClient.MySqlConnection Connection = new MySqlConnection(config.Value.MySQLConnection);
                 Connection.Open();
                 var cmd = Connection.CreateCommand() as MySqlCommand;
                 cmd.CommandText = @"SELECT customerId, username,password FROM customers WHERE customerId  ="+ customerId;
